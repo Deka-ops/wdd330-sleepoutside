@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Countdown Timer</title>
+<link rel="stylesheet" href="styles/countdown-timer.css">
+<script src="scripts/countdown-timer.js" defer></script>
+</head>
+<body>
+<main class="card" role="main">
+<header>
+<div class="logo">CT</div>
+<div>
+<h1 class="title">Countdown Timer</h1>
+<p class="subtitle">Simple, accessible timer with Pause/Resume and custom input</p>
+</div>
+</header>
+
+<section class="display" aria-live="polite">
+<h1 id="countdown">10s</h1>
+<div style="margin-top:8px;color:var(--muted)">Status: <span id="status">Idle</span></div>
+</section>
+
+<div class="controls" aria-hidden="false">
+<label for="timeInput" style="display:inline-flex;flex-direction:column;font-size:13px;color:var(--muted)">
+Start time (seconds)
+<input id="timeInput" type="number" min="1" step="1" value="10" aria-label="Start time in seconds">
+</label>
+
+<button id="startButton">Start</button>
+<button id="pauseButton" class="secondary" disabled>Pause</button>
+<button id="resetButton" class="secondary" disabled>Reset</button>
+</div>
+<footer>
+Tip: You can change the starting seconds and press Start. Use Pause to freeze and Resume to continue.
+</footer>
+</body>
+</html>
