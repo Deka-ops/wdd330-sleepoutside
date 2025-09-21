@@ -1,28 +1,36 @@
-import alert from "../alert.json";
-
-export default class alert {
-  init() {
-    console.log("loading alert:", alert);
-    this.renderAlert(alert);
+export default class Alert {
+  constructor(alertsPath) {
+    this.alertsPath = alertsPath;
   }
 
-  renderAlert(alert) {
-    const alertContainer = document.querySelector("#alert");
-    if (!alertContainer) return;
+  async init() {
+    const alerts = await this.getAlerts();
+    if (alerts.length > 0) {
+      this.renderAlerts(alerts);
+    }
+  }
 
-    alertContainer.innerHTML = "";
+  async getAlerts() {
+    const response = await fetch(this.alertsPath);
+    if (!response.ok) {
+      throw new Error("Failed to fetch alerts");
+    }
+    return response.json();
+  }
 
-    alert.forEach((alert) => {
-      const p = document.createElement("p");
-      p.textContent = alert.message;
-      p.style.backgroundColor = alert.background || "darkblue";
-      p.style.color = alert.color || "white";
-      p.style.padding = "1rem";
-      p.style.marginBottom = "0.5rem";
-      p.style.borderRadius = "5px";
-      p.style.fontWeight = "bold";
+  renderAlerts(alerts) {
+    const alertList = document.createElement("section");
+    alertList.className = "alert-list";
 
-      alertContainer.appendChild(p);
+    alerts.forEach((alert) => {
+      const alertElement = document.createElement("p");
+      alertElement.textContent = alert.message;
+      alertElement.style.backgroundColor = alert.background;
+      alertElement.style.color = alert.color;
+      alertList.appendChild(alertElement);
     });
+
+    const mainElement = document.querySelector("main");
+    mainElement.prepend(alertList);
   }
 }
