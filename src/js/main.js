@@ -12,4 +12,3 @@ productList.init();
 
 const alert = new Alert("/json/alert.json");
 alert.init();
-
